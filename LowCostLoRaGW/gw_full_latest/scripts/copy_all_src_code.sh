@@ -15,7 +15,7 @@
 echo "=================="
 echo "Replacing old source code with the new one"
 
-rmdir ~/lora_gateway
+rm -r ~/lora_gateway
 mkdir ~/lora_gateway
 cd ~/lora_gateway
 cp -R ~/Tesi-LoRa/LowCostLoRaGW/gw_full_latest/* .
