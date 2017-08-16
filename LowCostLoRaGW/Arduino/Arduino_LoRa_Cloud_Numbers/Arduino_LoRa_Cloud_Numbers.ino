@@ -194,13 +194,13 @@ void loop(void)
 
   sx1272.setPacketType(PKT_TYPE_DATA);
 
-  r_size=sprintf((char*)message, "Ping");
+  r_size=sprintf((char*)message, "\!100");
       
   while (1) {
 
       PRINT_CSTSTR("%s","=================================");
       PRINTLN;
-      PRINT_CSTSTR("%s","Sending Ping");  
+      PRINT_CSTSTR("%s","Sending message");  
       PRINTLN;
 
       if(ack_version){
@@ -220,19 +220,19 @@ void loop(void)
         switch(e){
           case 0:
             // the command has been executed with no errors
-            PRINT_CSTSTR("%s","Pong received from gateway!");
+            PRINT_CSTSTR("%s","Ack received from gateway!");
             break;
           case 1:
             // there has been an error while executing the command
-            PRINT_CSTSTR("%s","Error sending the ping!");
+            PRINT_CSTSTR("%s","Error sending the message!");
             break;
           case 2:
             // the command has not been executed
-            PRINT_CSTSTR("%s","Impossible to send the ping!");
+            PRINT_CSTSTR("%s","Impossible to send the message!");
             break;
           case 3:
             // packet has been sent but ACK has not been received
-            PRINT_CSTSTR("%s","No Pong received from the gateway!");
+            PRINT_CSTSTR("%s","No ack received from the gateway!");
             break;
           default:
             PRINT_CSTSTR("%s","Unexpected sending result!");
