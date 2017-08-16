@@ -345,7 +345,7 @@ def main(ldata, pdata, rdata, tdata, gwid):
 		index_first_data = 2		
 		
 		#data_array contains the multiple data to send to thingspeak, last value is the SNR
-		data_array.append(SNR)
+		data_array.append(str(SNR))
 		
 		#data contains the single data to send to thingspeak plus channel (data[0]) and field (data[1]) 
 		data = []

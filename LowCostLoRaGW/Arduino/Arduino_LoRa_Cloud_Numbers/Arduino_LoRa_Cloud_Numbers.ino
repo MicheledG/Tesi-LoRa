@@ -95,7 +95,7 @@ uint8_t message[100];
 
 int loraMode=LORAMODE;
 
-bool ack_version = true;
+bool ack_version = false;
 
 void setup()
 {
