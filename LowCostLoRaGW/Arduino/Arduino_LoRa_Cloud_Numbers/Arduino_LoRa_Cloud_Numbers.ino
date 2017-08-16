@@ -189,13 +189,12 @@ void loop(void)
 {
   uint8_t r_size;
   int e;
+  int randomNumber;
 
   sx1272.CarrierSense();
 
   sx1272.setPacketType(PKT_TYPE_DATA);
-
-  r_size=sprintf((char*)message, "\!100");
-      
+       
   while (1) {
 
       PRINT_CSTSTR("%s","=================================");
@@ -203,6 +202,9 @@ void loop(void)
       PRINT_CSTSTR("%s","Sending message");  
       PRINTLN;
 
+      randomNumber = rand();      
+      r_size=sprintf((char*)message, "\\!%d", randomNumber);
+      
       if(ack_version){
         // this is send that waits for the ack
         e = sx1272.sendPacketTimeoutACK(DEFAULT_DEST_ADDR, message, r_size);  

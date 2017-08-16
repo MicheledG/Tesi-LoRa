@@ -356,6 +356,7 @@ def main(ldata, pdata, rdata, tdata, gwid):
 		data.append(data_array[1]) #field (if '' default)		
 	
 		data.append(data_array[index_first_data]) #value to add (the first sensor value in data_array)
+		data.append(SNR)
 	
 		#upload data to thingspeak
 		#JUST FOR UPLOAD A SINGLE DATA IN A SPECIFIC FIELD AND SECOND DATA				
