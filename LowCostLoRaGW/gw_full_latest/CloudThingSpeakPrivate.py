@@ -212,10 +212,15 @@ def thingspeak_uploadMultipleData(data_array):
 		cmd = 'curl -s -k -X POST --data '
 		while(iteration<len(data_array)):
 			if(iteration == 3):
+				#first iteration
 				cmd += 'field'+str(fieldNumber)+'='+data_array[iteration]
 			else:
+				#other iterations
 				cmd += '&field'+str(fieldNumber)+'='+data_array[iteration]
-				
+			
+			print "field number: " + fieldNumber
+			print "field value: " + data_array[iteration]
+			
 			# don't use the nomenclature so += 2
 			iteration += 2
 			fieldNumber += 1

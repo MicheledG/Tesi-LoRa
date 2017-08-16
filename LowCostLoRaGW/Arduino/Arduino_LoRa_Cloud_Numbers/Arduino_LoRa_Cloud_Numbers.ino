@@ -245,6 +245,6 @@ void loop(void)
                  
       PRINT_CSTSTR("%s","=================================");
       PRINTLN;
-      delay(10000);    //ms
+      delay(30000);    //ms
   }          
 }
