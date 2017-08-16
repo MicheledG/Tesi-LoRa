@@ -221,8 +221,11 @@ def thingspeak_uploadMultipleData(data_array):
 			print "field number: " + str(fieldNumber)
 			print "field value: " + str(data_array[iteration])
 			
-			# don't use the nomenclature so += 2
-			iteration += 2
+			#iterator for data with nomenclature so += 2
+			#iteration += 2
+			#iterator for data without nomenclature so += 1 
+			iteration += 1
+			
 			fieldNumber += 1
 			
 		cmd += ' https://api.thingspeak.com/update?key='+data_array[0]
