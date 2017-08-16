@@ -37,7 +37,7 @@
 //
 // uncomment if your radio is an HopeRF RFM92W, HopeRF RFM95W, Modtronix inAir9B, NiceRF1276
 // or you known from the circuit diagram that output use the PABOOST line instead of the RFO line
-//#define PABOOST
+#define PABOOST
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
 // IMPORTANT
@@ -94,6 +94,8 @@ const uint32_t DEFAULT_CHANNEL=CH_00_433;
 uint8_t message[100];
 
 int loraMode=LORAMODE;
+
+bool ack_version = true;
 
 void setup()
 {
@@ -170,10 +172,15 @@ void setup()
   PRINT_CSTSTR("%s","Setting node addr: state ");
   PRINT_VALUE("%d", e);
   PRINTLN;
+
+  // Print debug status
+  PRINT_CSTSTR("%s","Debug mode: ");
+  PRINT_VALUE("%d", SX1272_debug_mode);
+  PRINTLN;
   
   // Print a success message
   PRINT_CSTSTR("%s","SX1272 successfully configured\n");
-
+  
   delay(500);
 }
 
@@ -193,24 +200,30 @@ void loop(void)
 
       PRINT_CSTSTR("%s","Sending Ping");  
       PRINTLN;
-            
-      e = sx1272.sendPacketTimeoutACK(DEFAULT_DEST_ADDR, message, r_size);
 
-      // this is the no-ack version
-      // e = sx1272.sendPacketTimeout(DEFAULT_DEST_ADDR, message, r_size);
-            
+      if(ack_version){
+        // this is send that waits for the ack
+        e = sx1272.sendPacketTimeoutACK(DEFAULT_DEST_ADDR, message, r_size);  
+      }
+      else{        
+        // this is send that does not wait for the ack
+        e = sx1272.sendPacketTimeout(DEFAULT_DEST_ADDR, message, r_size);                    
+      }
+      
       PRINT_CSTSTR("%s","Packet sent, state ");
       PRINT_VALUE("%d", e);
       PRINTLN;
-      
-      if (e==3)
-          PRINT_CSTSTR("%s","No Pong!");
-        
-      if (e==0)
-          PRINT_CSTSTR("%s","Pong received from gateway!");      
 
-      PRINTLN;
-      
-      delay(10000);    
+      if(ack_version){
+        if (e==3){
+          PRINT_CSTSTR("%s","No Pong!");
+        }                 
+        else if (e==0){
+          PRINT_CSTSTR("%s","Pong received from gateway!");  
+        }          
+      }            
+
+      PRINTLN;      
+      delay(10000);    //ms
   }          
 }
