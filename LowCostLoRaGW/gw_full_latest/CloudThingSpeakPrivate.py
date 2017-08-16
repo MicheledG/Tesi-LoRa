@@ -201,28 +201,19 @@ def thingspeak_uploadMultipleData(data_array):
 	
 		print '): '
 		
-		#we skip the thingspeak channel and field index when iterating
-		#if there is only 1 data, and without the nomemclature
-		if len(data_array)==3:
-			iteration = 2
-		else:
-		#else skip also the nomenclature
-			iteration = 3
+		#we skip the thingspeak channel and field index when iterating	
+		iteration = 2
 
 		cmd = 'curl -s -k -X POST --data '
 		while(iteration<len(data_array)):
-			if(iteration == 3):
+			if(iteration == 2):
 				#first iteration
 				cmd += 'field'+str(fieldNumber)+'='+data_array[iteration]
 			else:
 				#other iterations
 				cmd += '&field'+str(fieldNumber)+'='+data_array[iteration]
-		
-			#iterator for data with nomenclature so += 2
-			#iteration += 2
-			#iterator for data without nomenclature so += 1 
+		 
 			iteration += 1
-			
 			fieldNumber += 1
 			
 		cmd += ' https://api.thingspeak.com/update?key='+data_array[0]
@@ -308,10 +299,10 @@ def main(ldata, pdata, rdata, tdata, gwid):
 
 	if (str(src) in key_ThingSpeak.source_list) or (len(key_ThingSpeak.source_list)==0):
 	
-		#this part depends on the syntax used by the end-device
-		#we use: thingspeak_channel#thingspeak_field#TC/22.4/HU/85... 
-		#ex: ##TC/22.4/HU/85... or TC/22.4/HU/85... or thingspeak_channel##TC/22.4/HU/85... 
-		#or #thingspeak_field#TC/22.4/HU/85... to use some default value
+		#syntax used by the end-device
+		#thingspeak_channel#thingspeak_field#value1/value2/value3/value4... 
+		#ex: ##22.4/85... or 22.4/85... or thingspeak_channel##22.4/85... 
+		#or #thingspeak_field#22.4/85... to use some default value
 				
 		# get number of '#' separator
 		nsharp = ldata.count('#')			
@@ -320,7 +311,7 @@ def main(ldata, pdata, rdata, tdata, gwid):
 			#will use default channel and field
 			data=['','']
 		
-			#contains ['', '', "s1", s1value, "s2", s2value, ...]
+			#contains ['', '', value1, value2, ...]
 			data_array = data + re.split("/", ldata)		
 		elif nsharp==1:
 			#only 1 separator
@@ -335,7 +326,7 @@ def main(ldata, pdata, rdata, tdata, gwid):
 				#insert '' to indicate default channel
 				data_array.insert(0,'');		
 		else:
-			#contains [channel, field, "s1", s1value, "s2", s2value, ...]
+			#contains [channel, field, value1, value2, ...]
 			data_array = re.split("#|/", ldata)	
 		
 		#just in case we have an ending CR or 0
@@ -347,32 +338,20 @@ def main(ldata, pdata, rdata, tdata, gwid):
 		while i < len(data_array) :
 			while not data_array[i][len(data_array[i])-1].isdigit() :
 				data_array[i] = data_array[i][:-1]
-			i += 2
+			i += 1
 		
 		#get number of '/' separator
-		nslash = ldata.count('/')
-	
-		index_first_data = 2
-	
-		if nslash==0:
-			#old syntax without nomenclature key
-			index_first_data=2
-		else:
-			#new syntax with nomenclature key				
-			index_first_data=3
-																		
-		second_data=str(seq)
-
-		if (_thingspeaksnr):
-			second_data=str(SNR)
-	
-		#data to send to thingspeak
+		nslash = ldata.count('/')	
+		index_first_data = 2		
+		
+		#data_array contains the multiple data to send to thingspeak, last value is the SNR
+		data_array.append(SNR)
+		
+		#data contains the single data to send to thingspeak plus channel (data[0]) and field (data[1]) 
 		data = []
 		data.append(data_array[0]) #channel (if '' default)
 		data.append(data_array[1]) #field (if '' default)		
-	
 		data.append(data_array[index_first_data]) #value to add (the first sensor value in data_array)
-		data.append(SNR)
 	
 		#upload data to thingspeak
 		#JUST FOR UPLOAD A SINGLE DATA IN A SPECIFIC FIELD AND SECOND DATA				
