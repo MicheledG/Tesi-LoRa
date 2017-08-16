@@ -36,6 +36,13 @@
 			"script":"python CloudThingSpeak.py",
 			"type":"iotcloud",			
 			"write_key":"",
+			"enabled":false
+		},
+		{	
+			"name":"ThingSpeak cloud",
+			"script":"python CloudThingSpeakPrivate.py",
+			"type":"iotcloud",			
+			"write_key":"",
 			"enabled":true
 		},
 		{	
