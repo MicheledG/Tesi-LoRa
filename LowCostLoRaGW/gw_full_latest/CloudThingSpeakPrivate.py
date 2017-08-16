@@ -218,8 +218,8 @@ def thingspeak_uploadMultipleData(data_array):
 				#other iterations
 				cmd += '&field'+str(fieldNumber)+'='+data_array[iteration]
 			
-			print "field number: " + fieldNumber
-			print "field value: " + data_array[iteration]
+			print "field number: " + str(fieldNumber)
+			print "field value: " + str(data_array[iteration])
 			
 			# don't use the nomenclature so += 2
 			iteration += 2
