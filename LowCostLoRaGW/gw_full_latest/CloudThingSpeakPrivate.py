@@ -286,7 +286,7 @@ def thingspeak_printDataToSend(dataToSend):
 		print "data number: " + str(iteration)
 		print "data value: " + str(dataToSend[iteration])
 		print "==================================="
-		
+		iteration += 1
 			
 	
 
