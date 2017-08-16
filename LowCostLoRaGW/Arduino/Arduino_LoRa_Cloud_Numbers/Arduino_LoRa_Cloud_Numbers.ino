@@ -91,6 +91,8 @@ const uint32_t DEFAULT_CHANNEL=CH_00_433;
 
 #define DEFAULT_DEST_ADDR 1
 
+#define MESSAGE_SEND_RATE 60000 //ms
+
 uint8_t message[100];
 
 int loraMode=LORAMODE;
@@ -245,6 +247,6 @@ void loop(void)
                  
       PRINT_CSTSTR("%s","=================================");
       PRINTLN;
-      delay(30000);    //ms
+      delay(MESSAGE_SEND_RATE);    //ms
   }          
 }
