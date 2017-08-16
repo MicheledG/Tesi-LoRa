@@ -217,10 +217,7 @@ def thingspeak_uploadMultipleData(data_array):
 			else:
 				#other iterations
 				cmd += '&field'+str(fieldNumber)+'='+data_array[iteration]
-			
-			print "field number: " + str(fieldNumber)
-			print "field value: " + str(data_array[iteration])
-			
+		
 			#iterator for data with nomenclature so += 2
 			#iteration += 2
 			#iterator for data without nomenclature so += 1 
@@ -280,6 +277,17 @@ def thingspeak_setRetry(retry_bool):
 	global retry
 	retry = retry_bool
 	
+def thingspeak_printDataToSend(dataToSend):
+	
+	iteration = 0
+	
+	while(iteration<len(dataToSend)):			
+		print "==================================="
+		print "data number: " + str(iteration)
+		print "data value: " + str(dataToSend[iteration])
+		print "==================================="
+		
+			
 	
 
 # main
@@ -371,6 +379,7 @@ def main(ldata, pdata, rdata, tdata, gwid):
 		#thingspeak_uploadSingleData(data, second_data)   
 
 		#to upload multiple data with nomenclature fields, comment the previous line and uncomment the following line
+		thingspeak_printDataToSend(data_array)
 		thingspeak_uploadMultipleData(data_array)
 	else:
 		print "Source is not is source list, not sending with CloudThingSpeak.py"				
