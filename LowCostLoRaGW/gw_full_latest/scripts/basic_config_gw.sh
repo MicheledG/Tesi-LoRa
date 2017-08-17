@@ -57,16 +57,16 @@ sudo sed -i 's/^wpa_passphrase.*/wpa_passphrase=loragateway/g' /etc/hostapd/host
 echo "Done"
 echo "Gateway WiFi wpa_passphrase is loragateway"		
 
-#2017-07-19 COMMENTED the autorun setup by MicheledG
-#echo "Setting gateway to run at boot"
-## we always remove so that there will be no duplicate lines
-#echo "Removing /home/pi/lora_gateway/scripts/start_gw.sh in /etc/rc.local if any"
-#sudo sed -i 's/\/home\/pi\/lora_gateway\/scripts\/start_gw.sh//g' /etc/rc.local
-#echo "Done"
-#
-#echo "Add /home/pi/lora_gateway/scripts/start_gw.sh in /etc/rc.local"
-#sudo sed -i 's/^exit 0/\/home\/pi\/lora_gateway\/scripts\/start_gw.sh\nexit 0/g' /etc/rc.local
-#echo "Done"
+
+echo "Setting gateway to run at boot"
+# we always remove so that there will be no duplicate lines
+echo "Removing /home/pi/lora_gateway/scripts/start_gw.sh in /etc/rc.local if any"
+sudo sed -i 's/\/home\/pi\/lora_gateway\/scripts\/start_gw.sh//g' /etc/rc.local
+echo "Done"
+
+echo "Add /home/pi/lora_gateway/scripts/start_gw.sh in /etc/rc.local"
+sudo sed -i 's/^exit 0/\/home\/pi\/lora_gateway\/scripts\/start_gw.sh\nexit 0/g' /etc/rc.local
+echo "Done"
 
 echo "Compile lora_gateway executable"
 
