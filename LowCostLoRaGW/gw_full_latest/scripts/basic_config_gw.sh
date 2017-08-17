@@ -47,16 +47,17 @@ echo "Creating log -> ~/Dropbox/LoRa-test"
 ln -s ~/Dropbox/LoRa-test ../log
 echo "Done"		
 
-echo "Replacing hot-spot ssid in /etc/hostapd/hostapd.conf"
-sudo sed -i 's/^ssid.*/ssid=WAZIUP_PI_GW_'"$gwid"'/g' /etc/hostapd/hostapd.conf
-echo "Done"
-echo "Gateway WiFi ssid is WAZIUP_PI_GW_$gwid"
+##2017-08-17 COMMENTED by MicheledG BEGIN
+#echo "Replacing hot-spot ssid in /etc/hostapd/hostapd.conf"
+#sudo sed -i 's/^ssid.*/ssid=WAZIUP_PI_GW_'"$gwid"'/g' /etc/hostapd/hostapd.conf
+#echo "Done"
+#echo "Gateway WiFi ssid is WAZIUP_PI_GW_$gwid"
 		
-echo "Setting wpa_passphrase in /etc/hostapd/hostapd.conf"
-sudo sed -i 's/^wpa_passphrase.*/wpa_passphrase=loragateway/g' /etc/hostapd/hostapd.conf
-echo "Done"
-echo "Gateway WiFi wpa_passphrase is loragateway"		
-
+#echo "Setting wpa_passphrase in /etc/hostapd/hostapd.conf"
+#sudo sed -i 's/^wpa_passphrase.*/wpa_passphrase=loragateway/g' /etc/hostapd/hostapd.conf
+#echo "Done"
+#echo "Gateway WiFi wpa_passphrase is loragateway"		
+##2017-08-17 COMMENTED by MicheledG END
 
 echo "Setting gateway to run at boot"
 # we always remove so that there will be no duplicate lines
@@ -88,7 +89,7 @@ else
 fi
 		
 cd scripts
+sudo ./copy_all_src_code.sh
 
-#2017-07-19 COMMENTED the reboot advice by MicheledG
-#echo "You should reboot your Raspberry"
+echo "You should reboot your Raspberry"
 echo "Bye."
