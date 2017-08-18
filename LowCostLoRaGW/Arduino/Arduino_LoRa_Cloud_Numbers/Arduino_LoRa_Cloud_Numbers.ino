@@ -90,8 +90,8 @@ const uint32_t DEFAULT_CHANNEL=CH_00_433;
 #endif
 
 #define DEFAULT_DEST_ADDR 1
-
-#define MESSAGE_SEND_RATE 60000 //ms
+#define MAX_BUS_PEOPLE 200
+#define MESSAGE_SEND_RATE 30//s
 
 uint8_t message[100];
 
@@ -204,7 +204,7 @@ void loop(void)
       PRINT_CSTSTR("%s","Sending message");  
       PRINTLN;
 
-      randomNumber = rand();      
+      randomNumber = rand() % MAX_BUS_PEOPLE;      
       r_size=sprintf((char*)message, "\\!%d", randomNumber);
       
       if(ack_version){
@@ -247,6 +247,6 @@ void loop(void)
                  
       PRINT_CSTSTR("%s","=================================");
       PRINTLN;
-      delay(MESSAGE_SEND_RATE);    //ms
+      delay(MESSAGE_SEND_RATE*1000);    //ms
   }          
 }
